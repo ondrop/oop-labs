@@ -1,0 +1,8 @@
+It's non empty file
+
+bla-bla 123
+
+search text seearch text
+Search text seArch text
+search 
+test text
