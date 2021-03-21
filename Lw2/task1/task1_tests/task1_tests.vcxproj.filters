@@ -15,30 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fill.cpp">
+    <ClCompile Include="task1_tests.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\task1\VectorProcessor.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
-    <Text Include="Empty.txt" />
-    <Text Include="ContainsGap.txt" />
-    <Text Include="ContainsGap2.txt" />
-    <Text Include="WithoutStartSymbol.txt" />
-    <Text Include="LargeFile.txt" />
-    <Text Include="LargeFileOutput.txt" />
-    <Text Include="ContainsGap2Output.txt" />
-    <Text Include="ContainsGapOutput.txt" />
-    <Text Include="WithoutStartSymbolOutput.txt" />
-    <Text Include="File100x100.txt" />
-    <Text Include="LargeFile101x101.txt" />
-    <Text Include="File100x100Output.txt" />
-    <Text Include="LargeFile101x101Output.txt" />
-    <Text Include="EmptyWithOneLineWithoutSymbols.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Tests.bat">
-      <Filter>Исходные файлы</Filter>
-    </None>
+    <ClInclude Include="..\task1\VectorProcessor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

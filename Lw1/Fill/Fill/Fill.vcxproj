@@ -167,11 +167,16 @@
     <Text Include="ContainsGap2Output.txt" />
     <Text Include="ContainsGapOutput.txt" />
     <Text Include="Empty.txt" />
+    <Text Include="EmptyWithOneLineWithoutSymbols.txt" />
+    <Text Include="File100x100.txt" />
+    <Text Include="File100x100Output.txt" />
     <Text Include="input.txt" />
     <Text Include="LargeFile.txt" />
+    <Text Include="LargeFile101x101Output.txt" />
     <Text Include="LargeFileOutput.txt" />
     <Text Include="WithoutStartSymbol.txt" />
     <Text Include="WithoutStartSymbolOutput.txt" />
+    <Text Include="LargeFile101x101.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tests.bat" />

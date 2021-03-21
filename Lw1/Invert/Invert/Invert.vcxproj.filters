@@ -27,6 +27,10 @@
     <Text Include="DeterminantIsZero.txt" />
     <Text Include="CorrectMatrix.txt" />
     <Text Include="CorrectMatrixOutput.txt" />
+    <Text Include="BigNumber.txt" />
+    <Text Include="ManyLines.txt" />
+    <Text Include="ManyColumns.txt" />
+    <Text Include="IncorrectMatrix.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tests.bat">
