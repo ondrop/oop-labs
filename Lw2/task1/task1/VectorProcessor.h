@@ -4,13 +4,15 @@
 
 using namespace std;
 
-const float TWO = 2.0;
-const string ENTER_ELEMENTS = "Enter array elements separated by space";
-const string ELEMENTS_NOT_RECEIVED = "Array elements not received";
-const string DIVISION_BY_ZERO = "You cannot divide by zero";
+const string ENTER_STRING = "Enter string";
+const string EMPTY_STRING = "Empty string received";
 
-vector<float> ReadArray();
-float GetHalfOfMaxElement(const vector<float>& numberVector);
-bool VectorProcessing(vector<float>& numberVector);
-void PrintVector(const vector<float>& numberVector);
-void SortVector(vector<float>& numberVector);
+map<string, char> dictionary = {
+    {"&quot;", '"'},
+    {"&apos;", '\''},
+    {"&lt;", '<'},
+    {"&gt;", '>'},
+    {"&amp;", '&'}
+};
+
+string HtmlDecode(string workStr);
