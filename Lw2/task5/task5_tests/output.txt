@@ -1,0 +1,4 @@
+ftp://www.mysite.com/docs/document1.html?page=30&lang=en#title
+HOST: www.mysite.com
+PORT: 21
+DOC: docs/document1.html?page=30&lang=en#title
