@@ -15,8 +15,10 @@ SCENARIO("Test GetPort functions")
 		protocol = "http";
 		givenPort = "";
 		int expectedPort = 80;
-		int port = GetPort(protocol, givenPort);
-		REQUIRE(port == expectedPort);	
+		int port = 0;
+		bool isPortVaild = GetPort(protocol, givenPort, port);
+		REQUIRE(port == expectedPort);
+		REQUIRE(isPortVaild == true);
 		cout << TEST_PASSED << endl;
 	}
 
@@ -26,9 +28,84 @@ SCENARIO("Test GetPort functions")
 		protocol = "http";
 		givenPort = "8000";
 		int expectedPort = 8000;
-		int port = GetPort(protocol, givenPort);
+		int port = 0;
+		bool isPortVaild = GetPort(protocol, givenPort, port);
+		REQUIRE(port == expectedPort);
+		REQUIRE(isPortVaild == true);
+		cout << TEST_PASSED << endl;
+	}
+
+	GIVEN("Port is equal 1")
+	{
+		cout << "Port is equal 1" << endl;
+		protocol = "http";
+		givenPort = "1";
+		int expectedPort = 1;
+		int port = 0;
+		bool isPortVaild = GetPort(protocol, givenPort, port);
+		REQUIRE(isPortVaild == true);
 		REQUIRE(port == expectedPort);
 		cout << TEST_PASSED << endl;
+	}
+
+	GIVEN("Port is equal 65535")
+	{
+		cout << "Port is equal 65535" << endl;
+		protocol = "http";
+		givenPort = "65535";
+		int expectedPort = 65535;
+		int port = 0;
+		bool isPortVaild = GetPort(protocol, givenPort, port);
+		REQUIRE(isPortVaild == true);
+		REQUIRE(port == expectedPort);
+		cout << TEST_PASSED << endl;
+	}
+
+	GIVEN("Port is out of range")
+	{
+		WHEN("Port is equal negative number")
+		{
+			cout << "Port is equal negative number" << endl;
+			protocol = "http";
+			givenPort = "-1";
+			int port = 0;
+			bool isPortVaild = GetPort(protocol, givenPort, port);
+			REQUIRE(isPortVaild == false);
+			cout << TEST_PASSED << endl;
+		}
+
+		WHEN("Port is equal 0")
+		{
+			cout << "Port is equal 0" << endl;
+			protocol = "http";
+			givenPort = "0";
+			int port = 0;
+			bool isPortVaild = GetPort(protocol, givenPort, port);
+			REQUIRE(isPortVaild == false);
+			cout << TEST_PASSED << endl;
+		}
+
+		WHEN("Port is equal 65536")
+		{
+			cout << "Port is equal 65536" << endl;
+			protocol = "http";
+			givenPort = "65536";
+			int port = 0;
+			bool isPortVaild = GetPort(protocol, givenPort, port);
+			REQUIRE(isPortVaild == false);
+			cout << TEST_PASSED << endl;
+		}
+
+		WHEN("Port is equal 888888888888888888888888")
+		{
+			cout << "Port is equal 888888888888888888888888" << endl;
+			protocol = "http";
+			givenPort = "888888888888888888888888";
+			int port = 0;
+			bool isPortVaild = GetPort(protocol, givenPort, port);
+			REQUIRE(isPortVaild == false);
+			cout << TEST_PASSED << endl;
+		}
 	}
 }
 

@@ -9,15 +9,35 @@ map<string, int> protocol_to_port = {
     {"ftp", 21}
 };
 
-int GetPort(const string& protocol, string port)
+bool GetPort(const string& protocol, const string& givenPort, int& port)
 {
-    if (port.length())
+    if (givenPort.length())
     {
-        return stoi(port);
+        try
+        {
+            port = stoi(givenPort);
+        }
+        catch (const exception&)
+        {
+            cout << ERROR_CONVERTING_STRING_TO_INT << endl;
+            cout << PORT_OUT_OF_RANGE << endl;
+            return false;
+        }
+
+        if (port >= MIN_PORT_VALUE && port <= MAX_PORT_VALUE)
+        {
+            return true;
+        }
+        else
+        {
+            cout << PORT_OUT_OF_RANGE << endl;
+            return false;
+        }
     }
     else
     {
-        return protocol_to_port[protocol];
+        port = protocol_to_port[protocol];
+        return true;
     }
 }
 
@@ -25,17 +45,23 @@ bool ParseURL(const string& url, UrlInfo& urlinfo)
 {
     string lowerUrl = url;
     boost::algorithm::to_lower(lowerUrl);
-    const regex r("(https?|ftp):\/\/([^:/]+):?([0-9]+)?\/?(.+)?");
+    const regex urlRegex("(https?|ftp):\/\/([^:/]+):?([0-9]+)?\/?(.+)?");
     smatch matches;
-    if (regex_match(lowerUrl, matches, r))
+    if (regex_match(lowerUrl, matches, urlRegex))
     {
         string protocol = matches[1];
         urlinfo.host = matches[2];
-        urlinfo.port = GetPort(protocol, matches[3]);
+        bool validPort = GetPort(protocol, matches[3], urlinfo.port);
+        if (!validPort)
+        {
+            return false;
+        }
+
         urlinfo.document = matches[4];
     }
     else
     {
+        cout << URL_NOT_VALID << endl;
         return false;
     }
 
