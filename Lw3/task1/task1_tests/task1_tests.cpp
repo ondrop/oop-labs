@@ -107,6 +107,8 @@ SCENARIO("SetGear and SetSpeed")
 		REQUIRE(car.SetSpeed(10) == true);
 		REQUIRE(car.SetGear(0) == true);
 		REQUIRE(car.GetDirection() == Direction::BACK);
+		REQUIRE(car.SetSpeed(15) == false);
+		REQUIRE(car.TurnOffEngine() == false);
 		cout << "Try set gear 1 when speed != 0 and gear = 0" << endl;
 		REQUIRE(car.SetGear(1) == false);
 		cout << "Try set gear -1 when speed != 0 and gear = 0" << endl;
@@ -308,6 +310,131 @@ SCENARIO("Test CommandProcessing")
 			REQUIRE(paramValid == false);
 			REQUIRE(param == 0);
 			cout << TEST_PASSED << endl;
+		}
+	}
+}
+
+SCENARIO("Test CarControl")
+{
+	cout << "Test CarControl" << endl;
+	Car car;
+	GIVEN("CallCommand")
+	{
+		cout << "CallCommand " << endl;
+		WHEN("Info")
+		{
+			cout << "Info" << endl;
+			stringstream expectedStr, testStr;
+			CarControl carControl(car, testStr);
+			carControl.CallCommand(INFO, 0);
+			expectedStr << "Car info" << endl;
+			expectedStr << "Engine: " << "Off" << endl;
+			expectedStr << "Direction: " << "Stay" << endl;
+			expectedStr << "Speed: " << 0 << endl;
+			expectedStr << "Gear: " << 0 << endl;
+			REQUIRE(expectedStr.str() == testStr.str());
+
+			cout << TEST_PASSED << endl;
+		}
+
+		WHEN("EngineOn")
+		{
+			cout << ENGINE_ON << endl;
+			stringstream expectedStr, testStr;
+			CarControl carControl(car, testStr);
+			carControl.CallCommand(ENGINE_ON, 0);
+			expectedStr << ENGINE_WORK << endl;
+			REQUIRE(expectedStr.str() == testStr.str());
+
+			cout << TEST_PASSED << endl;
+		}
+
+		WHEN("EngineOff")
+		{
+			cout << ENGINE_OFF << endl;
+			WHEN("When can turn off engine")
+			{
+				cout << "When can turn off engine" << endl;
+				stringstream expectedStr, testStr;
+				CarControl carControl(car, testStr);
+				carControl.CallCommand(ENGINE_OFF, 0);
+				expectedStr << ENGINE_NOT_WORK << endl;
+				REQUIRE(expectedStr.str() == testStr.str());
+
+				cout << TEST_PASSED << endl;
+			}
+
+			WHEN("When cannot turn off engine")
+			{
+				cout << "When cannot turn off engine" << endl;
+				stringstream expectedStr, testStr;
+				CarControl carControl(car, testStr);
+				car.TurnOnEngine();
+				car.SetGear(1);
+				carControl.CallCommand(ENGINE_OFF, 0);
+				expectedStr << UNABLE_TO_TURN_OFF_ENGINE << endl;
+				REQUIRE(expectedStr.str() == testStr.str());
+
+				cout << TEST_PASSED << endl;
+			}
+		}
+
+		WHEN("SetGear")
+		{
+			cout << SET_GEAR << endl;
+			WHEN("When can set gear")
+			{
+				cout << "When can set gear" << endl;
+				stringstream expectedStr, testStr;
+				CarControl carControl(car, testStr);
+				car.TurnOnEngine();
+				carControl.CallCommand(SET_GEAR, 1);
+				expectedStr << U_GEAR + SET << endl;
+				REQUIRE(expectedStr.str() == testStr.str());
+
+				cout << TEST_PASSED << endl;
+			}
+
+			WHEN("When cannot set gear")
+			{
+				cout << "When cannot set gear" << endl;
+				stringstream expectedStr, testStr;
+				CarControl carControl(car, testStr);
+				carControl.CallCommand(SET_GEAR, 1);
+				expectedStr << UNABLE_TO_SET + L_GEAR << endl;
+				REQUIRE(expectedStr.str() == testStr.str());
+
+				cout << TEST_PASSED << endl;
+			}
+		}
+
+		WHEN(SET_SPEED)
+		{
+			cout << SET_SPEED << endl;
+			WHEN("When can set speed")
+			{
+				cout << "When can set speed" << endl;
+				stringstream expectedStr, testStr;
+				CarControl carControl(car, testStr);
+				car.TurnOnEngine();
+				car.SetGear(1);
+				carControl.CallCommand(SET_SPEED, 10);
+				expectedStr << U_SPEED + SET << endl;
+				REQUIRE(expectedStr.str() == testStr.str());
+
+				cout << TEST_PASSED << endl;
+			}
+
+			WHEN("When cannot set speed")
+			{
+				cout << "When cannot set speed" << endl;
+				stringstream expectedStr, testStr;
+				CarControl carControl(car, testStr);
+				carControl.CallCommand(SET_SPEED, 10);
+				expectedStr << UNABLE_TO_SET + L_SPEED << endl;
+				REQUIRE(expectedStr.str() == testStr.str());
+				cout << TEST_PASSED << endl;
+			}
 		}
 	}
 }
