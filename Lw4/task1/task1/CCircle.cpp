@@ -35,8 +35,8 @@ string CCircle::ToString() const
 {
 	stringstream streamStr;
 	streamStr << U_CIRCLE << endl;
-	streamStr << AREA << GetArea() << endl;
-	streamStr << PERIMETER << GetPerimeter() << endl;
+	streamStr << AREA << GetArea() << setprecision(THREE) << fixed << endl;
+	streamStr << PERIMETER << GetPerimeter() << setprecision(THREE) << fixed << endl;
 	streamStr << OUTLINE_COLOR << ConvertColorToHex(GetOutlineColor()) << endl;
 	streamStr << FILL_COLOR << ConvertColorToHex(GetFillColor()) << endl;
 	streamStr << CENTER << GetCenter().GetCoordinateX() << ' ' << GetCenter().GetCoordinateY() << endl;
@@ -58,7 +58,7 @@ uint32_t CCircle::GetFillColor() const
 string CCircle::ConvertColorToHex(uint32_t color) const
 {
 	stringstream hexColor;
-	hexColor << setfill('0') << setw(8) << hex << color << endl;
+	hexColor << setfill('0') << setw(6) << hex << color;
 
 	return hexColor.str();
 }

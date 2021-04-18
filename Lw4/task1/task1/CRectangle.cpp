@@ -27,11 +27,12 @@ string CRectangle::ToString() const
 {
 	stringstream streamStr;
 	streamStr << U_RECTANGLE << endl;
-	streamStr << AREA << GetArea() << endl;
-	streamStr << PERIMETER << GetPerimeter() << endl;
-	streamStr << OUTLINE_COLOR << GetOutlineColor() << endl;
-	streamStr << FILL_COLOR << GetFillColor() << endl;
+	streamStr << AREA << GetArea() << setprecision(THREE) << fixed << endl;
+	streamStr << PERIMETER << GetPerimeter() << setprecision(THREE) << fixed << endl;
+	streamStr << OUTLINE_COLOR << ConvertColorToHex(GetOutlineColor()) << endl;
+	streamStr << FILL_COLOR << ConvertColorToHex(GetFillColor()) << endl;
 	streamStr << LEFT_TOP_POINT << GetLeftTop().GetCoordinateX() << ' ' << GetLeftTop().GetCoordinateY() << endl;
+	streamStr << RIGHT_BOTTOM_POINT << GetRightBottom().GetCoordinateX() << ' ' << GetRightBottom().GetCoordinateY() << endl;
 	streamStr << WIDTH << GetWidth() << endl;
 	streamStr << HEIGHT << GetHeight() << endl;
 
@@ -71,7 +72,7 @@ double CRectangle::GetHeight() const
 string CRectangle::ConvertColorToHex(uint32_t color) const
 {
 	stringstream hexColor;
-	hexColor << setfill('0') << setw(8) << hex << color << endl;
+	hexColor << setfill('0') << setw(6) << hex << color;
 
 	return hexColor.str();
 }

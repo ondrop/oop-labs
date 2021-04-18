@@ -43,10 +43,10 @@ string CTriangle::ToString() const
 {
 	stringstream streamStr;
 	streamStr << U_TRIANGLE << endl;
-	streamStr << AREA << GetArea() << endl;
-	streamStr << PERIMETER << GetPerimeter() << endl;
-	streamStr << OUTLINE_COLOR << GetOutlineColor() << endl;
-	streamStr << FILL_COLOR << GetFillColor() << endl;
+	streamStr << AREA << GetArea() << setprecision(THREE) << fixed << endl;
+	streamStr << PERIMETER << GetPerimeter() << setprecision(THREE) << fixed << endl;
+	streamStr << OUTLINE_COLOR << ConvertColorToHex(GetOutlineColor()) << endl;
+	streamStr << FILL_COLOR << ConvertColorToHex(GetFillColor()) << endl;
 	streamStr << VERTEX_1 << GetVertex1().GetCoordinateX() << ' ' << GetVertex1().GetCoordinateY() << endl;
 	streamStr << VERTEX_2 << GetVertex2().GetCoordinateX() << ' ' << GetVertex2().GetCoordinateY() << endl;
 	streamStr << VERTEX_3 << GetVertex3().GetCoordinateX() << ' ' << GetVertex3().GetCoordinateY() << endl;
@@ -82,7 +82,7 @@ CPoint CTriangle::GetVertex3() const
 string CTriangle::ConvertColorToHex(uint32_t color) const
 {
 	stringstream hexColor;
-	hexColor << setfill('0') << setw(8) << hex << color << endl;
+	hexColor << setfill('0') << setw(6) << hex << color;
 
 	return hexColor.str();
 }

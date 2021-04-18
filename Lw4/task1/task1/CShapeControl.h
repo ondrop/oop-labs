@@ -8,7 +8,6 @@
 
 using namespace std;
 
-const int THREE = 3;
 const int TWO = 2;
 const string MIN_PERIMETER_SHAPE_INFO = "Information about a shape with a minimum perimeter";
 const string MAX_AREA_SHAPE_INFO = "Information about the figure with the maximum area";
@@ -46,7 +45,7 @@ private:
 
 	bool ConvertStringToDouble(double& number, const string& strNumber) const;
 	optional<CPoint> MakePoint(const string& xStr, const string& yStr) const;
-	bool GetDimensionValue(double dimension, const string& dimensionStr) const;
+	bool GetDimensionValue(double& dimension, const string& dimensionStr) const;
 	optional<uint32_t> GetColor(stringstream& streamStr) const;
 	vector<IShape*> GetShapes() const;
 };

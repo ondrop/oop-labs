@@ -28,9 +28,9 @@ string CLineSegment::ToString() const
 {
 	stringstream streamStr;
 	streamStr << U_LINE << endl;
-	streamStr << AREA << GetArea() << endl;
-	streamStr << PERIMETER << GetPerimeter() << endl;
-	streamStr << OUTLINE_COLOR << GetOutlineColor() << endl;
+	streamStr << AREA << GetArea() << setprecision(THREE) << fixed << endl;
+	streamStr << PERIMETER << GetPerimeter() << setprecision(THREE) << fixed << endl;
+	streamStr << OUTLINE_COLOR << ConvertColorToHex(GetOutlineColor()) << endl;
 	streamStr << START_POINT << GetStartPoint().GetCoordinateX() << ' ' << GetStartPoint().GetCoordinateY() << endl;
 	streamStr << END_POINT << GetEndPoint().GetCoordinateX() << ' ' << GetEndPoint().GetCoordinateY() << endl;
 
@@ -55,7 +55,7 @@ CPoint CLineSegment::GetEndPoint() const
 string CLineSegment::ConvertColorToHex(uint32_t color) const
 {
 	stringstream hexColor;
-	hexColor << setfill('0') << setw(8) << hex << color << endl;
+	hexColor << setfill('0') << setw(6) << hex << color;
 
 	return hexColor.str();
 }

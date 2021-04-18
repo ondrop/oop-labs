@@ -112,7 +112,7 @@ optional<CRectangle*> CShapeControl::GetRectangle(stringstream& streamStr) const
 		return nullopt;
 	}
 
-	CPoint rightBottomPoint(leftTopPoint->GetCoordinateX() + width, leftTopPoint->GetCoordinateY() + width);
+	CPoint rightBottomPoint(leftTopPoint->GetCoordinateX() - width, leftTopPoint->GetCoordinateY() + height);
 
 	auto outlineColor = GetColor(streamStr);
 	auto fillColor = GetColor(streamStr);
@@ -327,7 +327,7 @@ void CShapeControl::PrintInfo()
 	}
 }
 
-bool CShapeControl::GetDimensionValue(double dimension, const string& dimensionStr) const
+bool CShapeControl::GetDimensionValue(double& dimension, const string& dimensionStr) const
 {
-	return !ConvertStringToDouble(dimension, dimensionStr) || dimension < 0;
+	return ConvertStringToDouble(dimension, dimensionStr) && dimension >= 0;
 }

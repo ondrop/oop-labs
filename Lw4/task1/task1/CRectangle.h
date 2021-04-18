@@ -5,6 +5,7 @@
 
 const string U_RECTANGLE = "RECTANGLE";
 const string LEFT_TOP_POINT = "Left top point: ";
+const string RIGHT_BOTTOM_POINT = "Right bottom point: ";
 const string WIDTH = "Width: ";
 const string HEIGHT = "Height: ";
 
