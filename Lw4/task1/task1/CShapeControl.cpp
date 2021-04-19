@@ -112,17 +112,17 @@ optional<CRectangle*> CShapeControl::GetRectangle(stringstream& streamStr) const
 		return nullopt;
 	}
 
-	CPoint rightBottomPoint(leftTopPoint->GetCoordinateX() - width, leftTopPoint->GetCoordinateY() + height);
+	CPoint rightBottomPoint(leftTopPoint->GetCoordinateX() + width, leftTopPoint->GetCoordinateY() - height);
 
 	auto outlineColor = GetColor(streamStr);
 	auto fillColor = GetColor(streamStr);
 
-	if (!outlineColor)
+	if (outlineColor == nullopt)
 	{
 		outlineColor = BLACK_COLOR;
 	}
 
-	if (!fillColor)
+	if (fillColor == nullopt)
 	{
 		fillColor = WHITE_COLOR;
 	}
@@ -155,12 +155,12 @@ optional<CTriangle*> CShapeControl::GetTriangle(stringstream& streamStr) const
 	auto outlineColor = GetColor(streamStr);
 	auto fillColor = GetColor(streamStr);
 
-	if (!outlineColor)
+	if (outlineColor == nullopt)
 	{
 		outlineColor = BLACK_COLOR;
 	}
 
-	if (!fillColor)
+	if (fillColor == nullopt)
 	{
 		fillColor = WHITE_COLOR;
 	}
@@ -201,12 +201,12 @@ optional<CCircle*> CShapeControl::GetCircle(stringstream& streamStr) const
 	auto outlineColor = GetColor(streamStr);
 	auto fillColor = GetColor(streamStr);
 
-	if (!outlineColor)
+	if (outlineColor == nullopt)
 	{
 		outlineColor = BLACK_COLOR;
 	}
 
-	if (!fillColor)
+	if (fillColor == nullopt)
 	{
 		fillColor = WHITE_COLOR;
 	}
@@ -237,7 +237,7 @@ optional<CLineSegment*> CShapeControl::GetLine(stringstream& streamStr) const
 	}
 
 	auto outlineColor = GetColor(streamStr);
-	if (!outlineColor)
+	if (outlineColor == nullopt)
 	{
 		outlineColor = BLACK_COLOR;
 	}
@@ -262,6 +262,10 @@ void CShapeControl::AddShape(stringstream& streamStr)
 			m_shapes.push_back(rectangle.value());
 			m_output << SHAPE_RECEIVED << endl;
 		}
+		else
+		{
+			m_output << SHAPE_NOT_RECEIVED << endl;
+		}
 	}
 	else if (shapeName == TRIANGLE)
 	{
@@ -270,6 +274,10 @@ void CShapeControl::AddShape(stringstream& streamStr)
 		{
 			m_shapes.push_back(triangle.value());
 			m_output << SHAPE_RECEIVED << endl;
+		}
+		else
+		{
+			m_output << SHAPE_NOT_RECEIVED << endl;
 		}
 	}
 	else if (shapeName == CIRCLE)
@@ -280,6 +288,10 @@ void CShapeControl::AddShape(stringstream& streamStr)
 			m_shapes.push_back(circle.value());
 			m_output << SHAPE_RECEIVED << endl;
 		}
+		else
+		{
+			m_output << SHAPE_NOT_RECEIVED << endl;
+		}
 	}
 	else if (shapeName == LINE)
 	{
@@ -288,6 +300,10 @@ void CShapeControl::AddShape(stringstream& streamStr)
 		{
 			m_shapes.push_back(line.value());
 			m_output << SHAPE_RECEIVED << endl;
+		}
+		else
+		{
+			m_output << SHAPE_NOT_RECEIVED << endl;
 		}
 	}
 	else
@@ -301,25 +317,22 @@ void CShapeControl::PrintInfo()
 	vector<IShape*> shapes = GetShapes();
 	if (!shapes.empty())
 	{
-		IShape* maxAreaShape = shapes[0];
-		IShape* minPerimeterShape = shapes[0];
-		for (auto shape : shapes)
-		{
-			if (maxAreaShape->GetArea() < shape->GetArea())
+		auto maxAreaShape = min_element(shapes.begin(), shapes.end(),
+			[](IShape* shape1, IShape* shape2)
 			{
-				maxAreaShape = shape;
-			}
+				return shape1->GetArea() > shape2->GetArea();
+			});
 
-			if (minPerimeterShape->GetPerimeter() > shape->GetPerimeter())
+		auto minPerimeterShape = min_element(shapes.begin(), shapes.end(),
+			[](IShape* shape1, IShape* shape2)
 			{
-				minPerimeterShape = shape;
-			}
-		}
+				return shape1->GetPerimeter() < shape2->GetPerimeter();
+			});
 
 		m_output << MAX_AREA_SHAPE_INFO << endl;
-		m_output << maxAreaShape->ToString() << endl;
+		m_output << (*maxAreaShape)->ToString() << endl;
 		m_output << MIN_PERIMETER_SHAPE_INFO << endl;
-		m_output << minPerimeterShape->ToString() << endl;
+		m_output << (*minPerimeterShape)->ToString() << endl;
 	}
 	else
 	{

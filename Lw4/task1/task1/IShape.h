@@ -4,6 +4,7 @@
 using namespace std;
 
 const int THREE = 3;
+const int HEX_DIMENSION = 6;
 const uint32_t BLACK_COLOR = 0;
 const uint32_t WHITE_COLOR = 16777215;
 

@@ -362,7 +362,7 @@ SCENARIO("Test CShapeControl class")
 			expectedStreamStr << OUTLINE_COLOR << "ff0000" << endl;
 			expectedStreamStr << FILL_COLOR << "00ff00" << endl;
 			expectedStreamStr << LEFT_TOP_POINT << "1.000 1.000" << endl;
-			expectedStreamStr << RIGHT_BOTTOM_POINT << "-9.000 16.000" << endl;
+			expectedStreamStr << RIGHT_BOTTOM_POINT << "11.000 -14.000" << endl;
 			expectedStreamStr << WIDTH << "10.000" << endl;
 			expectedStreamStr << HEIGHT << "15.000" << endl << endl;
 
@@ -374,6 +374,22 @@ SCENARIO("Test CShapeControl class")
 			expectedStreamStr << FILL_COLOR << "ffffff" << endl;
 			expectedStreamStr << CENTER << "1.000 1.000" << endl;
 			expectedStreamStr << RADIUS << "5.000" << endl << endl;
+
+			REQUIRE(output.str() == expectedStreamStr.str());
+			cout << TEST_PASSED << endl;
+		}
+
+		WHEN("Given shape but not received")
+		{
+			cout << "Given shape but not received" << endl;
+			stringstream output, streamStr, expectedStreamStr;
+			CShapeControl shapeControl(output);
+			streamStr << "circle 1 1 -5" << endl;
+			shapeControl.AddShape(streamStr);
+			shapeControl.PrintInfo();
+
+			expectedStreamStr << SHAPE_NOT_RECEIVED << endl;
+			expectedStreamStr << SHAPES_ARRAY_EMPTY << endl;
 
 			REQUIRE(output.str() == expectedStreamStr.str());
 			cout << TEST_PASSED << endl;

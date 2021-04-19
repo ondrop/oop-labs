@@ -72,7 +72,7 @@ double CRectangle::GetHeight() const
 string CRectangle::ConvertColorToHex(uint32_t color) const
 {
 	stringstream hexColor;
-	hexColor << setfill('0') << setw(6) << hex << color;
+	hexColor << setfill('0') << setw(HEX_DIMENSION) << hex << color;
 
 	return hexColor.str();
 }
