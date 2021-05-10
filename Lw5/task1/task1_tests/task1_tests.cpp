@@ -348,6 +348,7 @@ SCENARIO("Test CComlpex operators")
 		CComplex complex3;
 		streamStr << complex3;
 		REQUIRE(streamStr.str() == "0+0i");
+		cout << TEST_PASSED << endl;
 	}
 
 	GIVEN("Stream input operator")
@@ -387,5 +388,6 @@ SCENARIO("Test CComlpex operators")
 		streamStr << "adasdasdasdas";
 		streamStr >> complex5;
 		REQUIRE(complex5 == CComplex(0, 0));
+		cout << TEST_PASSED << endl;
 	}
 }
