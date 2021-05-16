@@ -33,9 +33,9 @@ CHttpUrl::CHttpUrl(string const& url)
 CHttpUrl::CHttpUrl(string const& domain, string const& document, Protocol protocol)
 	:m_domain(domain),
 	m_document(document),
-	m_protocol(protocol),
-    m_port(GetDefaultPort())
+	m_protocol(protocol)
 {
+    m_port = GetDefaultPort();
 }
 
 CHttpUrl::CHttpUrl(string const& domain, string const& document, Protocol protocol, unsigned short port)
@@ -48,14 +48,17 @@ CHttpUrl::CHttpUrl(string const& domain, string const& document, Protocol protoc
 
 string CHttpUrl::GetURL() const
 {
-    auto it = PROTOCOL_TO_PORT.find(m_protocol);
+    auto it = PROTOCOL_TO_PORT.find(GetProtocol());
     if (it != PROTOCOL_TO_PORT.end())
     {
-        return ProtocolToString() + "://" + GetDomain() + ":" + to_string(GetPort()) + "/" + GetDocument();
-    }
-    else
-    {
-        return ProtocolToString() + "://" + GetDomain() + "/" + GetDocument();
+        if ((*it).second != GetPort())
+        {
+            return ProtocolToString() + "://" + GetDomain() + ":" + to_string(GetPort()) + "/" + GetDocument();
+        }
+        else
+        {
+            return ProtocolToString() + "://" + GetDomain() + "/" + GetDocument();
+        }
     }
 }
 
@@ -157,4 +160,3 @@ string CHttpUrl::ProtocolToString() const
         return (*it).second;
     }
 }
-

@@ -21,4 +21,6 @@ int main()
 			cout << exc.what() << endl;
 		}
 	}
+
+	return 0;
 }
